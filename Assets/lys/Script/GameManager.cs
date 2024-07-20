@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // TextMesh Pro 네임스페이스
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class SpriteList
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Image[] itemImages; // UI에서 아이템 이미지를 표시할 Image 컴포넌트 배열
     public List<SpriteList> enhancementSprites; // 각 아이템의 강화 레벨에 따른 이미지 배열을 관리하는 List
     public TMP_Text[] enhancementLevelTexts; // 강화 레벨을 표시할 TMP_Text 컴포넌트 배열
+    public float Coin;
 
     public GameObject Play_Panel;
     public GameObject Play_Sound_panel;
@@ -24,6 +26,9 @@ public class GameManager : MonoBehaviour
     public Slider Play_Effect_Slider; // 이펙트 슬라이더
     private ButtonManager ButtonManager;
     private bool Play_Sound_panel_ON = true;
+    public bool isPlayerDie = false;
+
+    
 
     private const string EnhancementLevelKeyPrefix = "EnhancementLevel_"; // PlayerPrefs 키 접두사
 
@@ -35,6 +40,9 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public Slider worldO2Slider;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private GameObject gameClearPanel;
+    [SerializeField] private GameObject gameOverPanel;
 
     private Transform playerTransform = null;
     private float minPersent;
@@ -76,6 +84,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(isPlayerDie == true)
+        {
+            return;
+        }
+
+        coinText.text = "X " + Coin.ToString();
+
         if (Input.GetKeyDown(KeyCode.Escape) && Play_Sound_panel_ON == false)
         {
             ToggleSettingsPanel();
@@ -181,5 +196,25 @@ public class GameManager : MonoBehaviour
     private void perSentUpdater()
     {
         text.text = Mathf.FloorToInt(worldO2Slider.value * 100).ToString() + "%";
+    }
+
+    public void QuitButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ReStartButton()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void GameClear()
+    {
+        gameClearPanel.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
     }
 }

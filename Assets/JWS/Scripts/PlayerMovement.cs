@@ -1,12 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
-using System.Text;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             pickaxe.SetActive(!isTp);
         }
 
-        if (isTp == true)
+        if (isTp == true || GameManager.instance.isPlayerDie == true)
         {
             return;
         }
@@ -74,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isTp == true)
+        if(isTp == true || GameManager.instance.isPlayerDie == true)
         {
             rb.velocity = Vector2.zero;
             return;
@@ -184,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheckPos.position, 0.1f, groundLayer);
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

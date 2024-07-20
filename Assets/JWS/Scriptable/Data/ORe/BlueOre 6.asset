@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd7cd774d88876a48872777f977d06f5, type: 3}
-  m_Name: BlueOre
+  m_Name: BlueOre 6
   m_EditorClassIdentifier: 
-  oreSprite: {fileID: 21300000, guid: 28c86daed5cec85479ea3fad0ad29ba0, type: 3}
-  oreHp: 3
-  coinCount: 5
+  oreSprite: {fileID: 1281609565, guid: e8b7d738881629340b31349d3bd2ed8b, type: 3}
+  oreHp: 30
+  coinCount: 35
