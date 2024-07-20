@@ -15,10 +15,19 @@ public class GameManager : MonoBehaviour
     public List<SpriteList> enhancementSprites; // 각 아이템의 강화 레벨에 따른 이미지 배열을 관리하는 List
     public TMP_Text[] enhancementLevelTexts; // 강화 레벨을 표시할 TMP_Text 컴포넌트 배열
 
+    public GameObject Play_Panel;
+    public GameObject Play_Sound_panel;
+    private bool Play_Sound_panel_ON = true;
+    
+    public ButtonManager ButtonManager;
+
     private const string EnhancementLevelKeyPrefix = "EnhancementLevel_"; // PlayerPrefs 키 접두사
 
     private void Start()
     {
+        Play_Panel.SetActive(false);
+        Play_Sound_panel.SetActive(false);
+
         FadeManager.Instance.FadeIn();
         // 각 아이템의 저장된 강화 레벨을 불러와서 UI를 업데이트
         for (int i = 0; i < itemImages.Length; i++)
@@ -28,9 +37,43 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && Play_Sound_panel_ON == false)
+        {
+            ToggleSettingsPanel();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && Play_Sound_panel_ON == true)
+        {
+                Play_Sound_panel.SetActive(false);
+                Play_Sound_panel_ON = false;
+        }   
+    }
+
+    public void ToggleSettingsPanel()
+    {
+        if (Play_Panel != null)
+        {
+            bool isActive = Play_Panel.activeSelf;  // 현재 활성화 상태를 확인합니다.
+            Play_Panel.SetActive(!isActive);        // 활성화 상태를 토글합니다.
+        }
+    }
+
+    public void open_PlaySound()
+    {
+        Play_Sound_panel.SetActive(true);
+        Play_Sound_panel_ON = true;
+    }
+    public void GO_Title()
+    {
+        // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
+        FadeManager.Instance.ChangeScene(0);
+    }
+
+
     // 아이템 강화 메서드
     public void EnhanceItem(int itemIndex)
-    {
+        {
         // 지정된 아이템의 현재 강화 레벨을 불러옴
         int enhancementLevel = PlayerPrefs.GetInt(EnhancementLevelKeyPrefix + itemIndex, 0);
 

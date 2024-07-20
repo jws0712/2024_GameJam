@@ -9,10 +9,10 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager s_Instance { get; private set; }
 
-    [SerializeField] private AudioMixer m_AudioMixer;
-    [SerializeField] private Slider m_MusicMasterSlider;
-    [SerializeField] private Slider m_MusicBGMSlider;
-    [SerializeField] private Slider m_MusicEffectSlider;
+     public AudioMixer m_AudioMixer;
+     public Slider m_MusicMasterSlider;
+     public Slider m_MusicBGMSlider;
+     public Slider m_MusicEffectSlider;
 
     static float master = 1;
     static float bgs = 1;

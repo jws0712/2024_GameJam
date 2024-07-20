@@ -30,6 +30,8 @@ public class ButtonManager : MonoBehaviour
     public float bgsVolum;
     public float bgmVolum;
 
+    LoadingManager loading;
+
     void Start()
     {
         OnOffPannel(false);// 시작시 옵션 패널 꺼짐
@@ -77,7 +79,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
-        FadeManager.Instance.ChangeScene(1);
+        FadeManager.Instance.ChangeScene(2);
     }
     public void OptionpPanel()// 옵션창 열기 함수
     {
