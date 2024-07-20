@@ -9,10 +9,12 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager s_Instance { get; private set; }
 
-    [SerializeField] private AudioMixer m_AudioMixer;
-    [SerializeField] private Slider m_MusicMasterSlider;
-    [SerializeField] private Slider m_MusicBGMSlider;
-    [SerializeField] private Slider m_MusicEffectSlider;
+     public AudioMixer m_AudioMixer;
+     public Slider m_MusicMasterSlider;
+     public Slider m_MusicBGMSlider;
+     public Slider m_MusicEffectSlider;
+
+    private ButtonManager ButtonManager;
 
     static float master = 1;
     static float bgs = 1;
@@ -35,7 +37,7 @@ public class SoundManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         master = volume;
-        m_AudioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        m_AudioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);      
     }
 
     public void SetMusicVolume(float volume)

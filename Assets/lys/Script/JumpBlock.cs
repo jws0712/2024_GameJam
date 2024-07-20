@@ -10,7 +10,7 @@ public class JumpBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
+      
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class JumpBlock : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision != null) 
+        if (collision != null) // 태그 수정해주세여
         {
             rigid.AddForce(JumpBlock_Power, ForceMode2D.Impulse);
         }

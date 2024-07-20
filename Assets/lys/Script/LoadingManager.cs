@@ -23,6 +23,7 @@ public class LoadingManager : MonoBehaviour
 
     private void Start()
     {
+        
         StartCoroutine(LoadGameSceneAsync());
     }
 
@@ -36,8 +37,8 @@ public class LoadingManager : MonoBehaviour
             // 로딩 진행 상태를 콘솔에 출력
             float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f); // progress는 0에서 0.9까지 진행됨
             Debug.Log("Loading Progress: " + (progress * 100f).ToString("F0") + "%");
-
-            yield return null;
+            
+            yield return null ;
         }
     }
 }

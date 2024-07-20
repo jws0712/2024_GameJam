@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
+    public static ButtonManager Instance { get; private set; } // 싱글톤 인스턴스
+
     public GameObject Setting_panel; // 옵션 패널 
     public bool Setting_panel_on; // 옵션 패널이 열려있는가
 
@@ -30,16 +32,33 @@ public class ButtonManager : MonoBehaviour
     public float bgsVolum;
     public float bgmVolum;
 
+    LoadingManager loading;
+
+    void Awake()
+    {
+        // 싱글톤 인스턴스를 설정하고 중복되지 않도록 처리
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
-        OnOffPannel(false);// 시작시 옵션 패널 꺼짐
- 
+        OnOffPannel(false); // 시작시 옵션 패널 꺼짐
     }
+
     private void OnOffPannel(bool active)
     {
         Setting_panel.SetActive(active);
         Setting_panel_on = active;
     }
+
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape) && Setting_panel_on == true) // esc를 눌렀을 때 옵션 창 닫기 
@@ -47,7 +66,7 @@ public class ButtonManager : MonoBehaviour
             OnOffPannel(false);
         }
 
-        if (Master_Slider.value == 0.001f) 
+        if (Master_Slider.value == 0.001f)
         {
             Master_img.sprite = mute_img;
         }
@@ -56,7 +75,7 @@ public class ButtonManager : MonoBehaviour
             Master_img.sprite = unmute_img;
         }
 
-        if (BGM_Slider.value == 0.001f) 
+        if (BGM_Slider.value == 0.001f)
         {
             BGM_img.sprite = mute_img;
         }
@@ -65,7 +84,7 @@ public class ButtonManager : MonoBehaviour
             BGM_img.sprite = unmute_img;
         }
 
-        if (Effect_Slider.value == 0.001f)  
+        if (Effect_Slider.value == 0.001f)
         {
             Effect_img.sprite = mute_img;
         }
@@ -74,20 +93,23 @@ public class ButtonManager : MonoBehaviour
             Effect_img.sprite = unmute_img;
         }
     }
+
     public void StartGame()
     {
         // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
-        SceneManager.LoadScene(1);
+        FadeManager.Instance.ChangeScene(2);
     }
-    public void OptionpPanel()// 옵션창 열기 함수
+
+    public void OptionpPanel() // 옵션창 열기 함수
     {
         OnOffPannel(true);
-
     }
+
     public void OptionpPanel_Close() // 옵션창 닫기
     {
         OnOffPannel(false);
     }
+
     public void ExitGame() // 게임 나가기 함수
     {
 #if UNITY_EDITOR
@@ -110,6 +132,7 @@ public class ButtonManager : MonoBehaviour
         }
         isMuteMasterVolum = !isMuteMasterVolum;
     }
+
     public void mute_EV() // 이펙트 볼륨 음소거
     {
         if (isMuteBGSVolum)
@@ -123,6 +146,7 @@ public class ButtonManager : MonoBehaviour
         }
         isMuteBGSVolum = !isMuteBGSVolum;
     }
+
     public void mute_BV() // 배경음악 음소거
     {
         if (isMuteBGMVolum)

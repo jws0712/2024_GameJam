@@ -48,7 +48,7 @@ public class MovingBlock : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Rigidbody2D rb = collision.collider.GetComponent<Rigidbody2D>();
-        if (rb != null && !passengers.Contains(rb))
+        if (rb != null && !passengers.Contains(rb)) 
         {
             passengers.Add(rb);
         }
