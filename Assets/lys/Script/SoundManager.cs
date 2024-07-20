@@ -14,6 +14,8 @@ public class SoundManager : MonoBehaviour
      public Slider m_MusicBGMSlider;
      public Slider m_MusicEffectSlider;
 
+    private ButtonManager ButtonManager;
+
     static float master = 1;
     static float bgs = 1;
     static float bgm = 1;
@@ -35,7 +37,7 @@ public class SoundManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         master = volume;
-        m_AudioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        m_AudioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);      
     }
 
     public void SetMusicVolume(float volume)

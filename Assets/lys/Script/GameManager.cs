@@ -17,9 +17,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject Play_Panel;
     public GameObject Play_Sound_panel;
+    public Slider Play_Master_Slider; // 마스터 슬라이더
+    public Slider Play_BGM_Slider; // 브금 슬라이더
+    public Slider Play_Effect_Slider; // 이펙트 슬라이더
+    private ButtonManager ButtonManager;
     private bool Play_Sound_panel_ON = true;
-    
-    public ButtonManager ButtonManager;
 
     private const string EnhancementLevelKeyPrefix = "EnhancementLevel_"; // PlayerPrefs 키 접두사
 
@@ -27,6 +29,19 @@ public class GameManager : MonoBehaviour
     {
         Play_Panel.SetActive(false);
         Play_Sound_panel.SetActive(false);
+
+        // ButtonManager를 찾는 코드 추가
+        ButtonManager = FindObjectOfType<ButtonManager>();
+        if (ButtonManager == null)
+        {
+            Debug.LogWarning("ButtonManager를 찾을 수 없습니다.");
+        }
+        else
+        {
+            Play_Master_Slider.value = ButtonManager.masterVolum;
+            Play_BGM_Slider.value = ButtonManager.bgmVolum;
+            Play_Effect_Slider.value = ButtonManager.bgsVolum;
+        }
 
         FadeManager.Instance.FadeIn();
         // 각 아이템의 저장된 강화 레벨을 불러와서 UI를 업데이트
@@ -45,9 +60,9 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape) && Play_Sound_panel_ON == true)
         {
-                Play_Sound_panel.SetActive(false);
-                Play_Sound_panel_ON = false;
-        }   
+            Play_Sound_panel.SetActive(false);
+            Play_Sound_panel_ON = false;
+        }
     }
 
     public void ToggleSettingsPanel()
@@ -61,19 +76,26 @@ public class GameManager : MonoBehaviour
 
     public void open_PlaySound()
     {
-        Play_Sound_panel.SetActive(true);
-        Play_Sound_panel_ON = true;
+        if (ButtonManager != null)
+        {
+            Play_Sound_panel.SetActive(true);
+            Play_Sound_panel_ON = true;
+        }
+        else
+        {
+            Debug.LogWarning("ButtonManager가 null입니다. 설정 패널을 열 수 없습니다.");
+        }
     }
+
     public void GO_Title()
     {
         // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
         FadeManager.Instance.ChangeScene(0);
     }
 
-
     // 아이템 강화 메서드
     public void EnhanceItem(int itemIndex)
-        {
+    {
         // 지정된 아이템의 현재 강화 레벨을 불러옴
         int enhancementLevel = PlayerPrefs.GetInt(EnhancementLevelKeyPrefix + itemIndex, 0);
 
