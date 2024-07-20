@@ -6,7 +6,7 @@ public class JumpBlock : MonoBehaviour
 {
     public Rigidbody2D rigid;
 
-    Vector2 JumpBlock_Power = new Vector2 (0, 10);
+    Vector2 JumpBlock_Power = new Vector2 (0, 27);
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class JumpBlock : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision != null) // 태그 수정해주세여
+        if (collision.gameObject.CompareTag("Player"))// 태그 수정해주세여
         {
             rigid.AddForce(JumpBlock_Power, ForceMode2D.Impulse);
         }

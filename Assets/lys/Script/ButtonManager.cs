@@ -61,6 +61,11 @@ public class ButtonManager : MonoBehaviour
 
     void Update()
     {
+        if(Master_img.sprite == null || BGM_img.sprite == null || Effect_img.sprite == null)
+        {
+            return;
+        }
+
         if (Input.GetKeyUp(KeyCode.Escape) && Setting_panel_on == true) // esc를 눌렀을 때 옵션 창 닫기 
         {
             OnOffPannel(false);

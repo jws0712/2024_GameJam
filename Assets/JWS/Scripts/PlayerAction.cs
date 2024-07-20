@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
@@ -16,12 +17,15 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private float currentPlayerO2;
     [SerializeField] private float o2UpgradeVelue;
 
+    private Animator animator;
+
 
     private bool isMining;
 
     private void Awake()
     {
         pickaxeAnimator = transform.GetChild(0).gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -39,7 +43,7 @@ public class PlayerAction : MonoBehaviour
             PlayerMining();
         }
 
-        // SliderUpdater();
+        playerHp.value = currentHp / maxHp;
     }
     private void PlayerMining()
     {
@@ -83,7 +87,8 @@ public class PlayerAction : MonoBehaviour
             }
             else if (GameManager.instance.worldO2Slider.value <= 1)
             {
-                currentPlayerO2 -= 0 * (o2UpgradeVelue / 100);
+                currentHp = maxHp;
+                currentPlayerO2 = maxPlayerO2;
 
             }
 
@@ -104,5 +109,22 @@ public class PlayerAction : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
             }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHp -= damage;
+
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        GameManager.instance.GameOver();
+        GameManager.instance.isPlayerDie = true;
+        animator.SetTrigger("Die");
     }
 }

@@ -7,7 +7,6 @@ public class Spaike : MonoBehaviour
 {
     public bool isInvincible = false;
     public float invincibilityDuration = 2f; // 무적 시간
-    public int HP = 50; // 변경
     // Start is called before the first frame update
     void Start()
     {
@@ -22,24 +21,10 @@ public class Spaike : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && isInvincible == false)
+        if(collision.CompareTag("Player"))
         {
-            test_TakeDamage();
-            isInvincible = true;
+            collision.GetComponent<PlayerAction>().TakeDamage(20f);
+            
         }
-        if (isInvincible == true)
-        {
-            Invoke("isInvincible_off", 2f);
-        }
-    }
-
-    public void isInvincible_off()
-    {
-        isInvincible = false ;
-    }
-
-    public void test_TakeDamage() // 변경
-    {
-        HP -= 20;
     }
 }
