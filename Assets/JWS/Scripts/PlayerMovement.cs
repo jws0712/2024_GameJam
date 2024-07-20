@@ -184,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("Ore"))
         {
-            collision.GetComponent<Ore>().TakeDamage(1f);
+            collision.GetComponent<Ore>().TakeDamage(transform.GetChild(0).GetComponent<pickAxe>().damage);
         }
     }
 }

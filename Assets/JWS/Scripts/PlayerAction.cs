@@ -15,7 +15,7 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private float currentHp;
     [SerializeField] private float maxPlayerO2;
     [SerializeField] private float currentPlayerO2;
-    [SerializeField] private float o2UpgradeVelue;
+    
 
     private Animator animator;
 
@@ -38,6 +38,11 @@ public class PlayerAction : MonoBehaviour
 
     private void Update()
     {
+        if(currentHp <= 0)
+        {
+            Die();
+        }
+
         if(Input.GetKey(KeyCode.E) && !isMining)
         {
             PlayerMining();
@@ -68,21 +73,21 @@ public class PlayerAction : MonoBehaviour
         {
             if (GameManager.instance.worldO2Slider.value <= 0.2f)
             {
-                currentPlayerO2 -= 4 * (o2UpgradeVelue / 100);
+                currentPlayerO2 -= 4 * (GameManager.instance.o2UpgradeVelue / 100);
             }
             else if (GameManager.instance.worldO2Slider.value <= 0.4f)
             {
-                currentPlayerO2 -= 3 * (o2UpgradeVelue / 100);
+                currentPlayerO2 -= 3 * (GameManager.instance.o2UpgradeVelue / 100);
 
             }
             else if (GameManager.instance.worldO2Slider.value <= 0.6f)
             {
-                currentPlayerO2 -= 2 * (o2UpgradeVelue / 100);
+                currentPlayerO2 -= 2 * (GameManager.instance.o2UpgradeVelue / 100);
 
             }
             else if (GameManager.instance.worldO2Slider.value <= 0.8f)
             {
-                currentPlayerO2 -= 1 * (o2UpgradeVelue / 100);
+                currentPlayerO2 -= 1 * (GameManager.instance.o2UpgradeVelue / 100);
 
             }
             else if (GameManager.instance.worldO2Slider.value <= 1)

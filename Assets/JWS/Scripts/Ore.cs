@@ -38,6 +38,7 @@ public class Ore : MonoBehaviour
     private void Die()
     {
         GameManager.instance.Coin += coinCount;
+        PlayerPrefs.SetInt("CoinCount", (int)GameManager.instance.Coin);
         Destroy(gameObject);   
     }
 }

@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class pickAxe : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private new SpriteRenderer renderer;
+    public float damage;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        renderer = GetComponent<SpriteRenderer>();
+    }
+    private void Update()
+    {
+        if (GameManager.instance.currentPickAxeData == null)
+        {
+            Debug.LogError("GameManager instance or currentPickAxeData is null");
+            return;
+        }
+
+        renderer.sprite = GameManager.instance.currentPickAxeData.PickAxeSprite;
+        damage = GameManager.instance.currentPickAxeData.PickAxeDamage;
     }
 }
