@@ -14,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpPower = 10f;
     [SerializeField] private GameObject charactorHolder = null;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheckPos;
+    [SerializeField] private Transform tp_pos = null;
+    [SerializeField] private GameObject pickaxe = null;
 
     private Rigidbody2D rb = null;
     private Animator animator = null;
@@ -24,8 +28,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 originalSize = Vector3.zero;
 
     public bool faceRight = default;
-    public bool isGround = default;
     private bool isJump = default;
+    public bool isTp = default;
 
 
     private void Awake()
@@ -37,10 +41,31 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         faceRight = true;
+        isTp = false;
     }
 
     private void Update()
     {
+
+        if (isTp == true && GroundCheck() == false)
+        {
+            isTp = false;
+            pickaxe.SetActive(!isTp);
+        }
+
+        if (isTp == true)
+        {
+            return;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Q) && GroundCheck() && !isTp)
+        {
+            isTp = true;
+            pickaxe.SetActive(!isTp);
+            animator.SetTrigger("Tp");
+        }
+
         PlayerInput();
         PlayerFlip();
         PlayerJump();
@@ -49,12 +74,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(isTp == true)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         PlayerMove();
+    }
+
+    public void Tp()
+    {
+        transform.position = tp_pos.position;
     }
 
     private void PlayerJump()
     {
-        if (isGround && Input.GetKeyDown(KeyCode.Space))
+        if (GroundCheck() && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
 
@@ -67,10 +103,17 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             isJump = false;
         }
-        if(rb.velocity.y < 0f && !isGround)
+        if(rb.velocity.y < 0f && !GroundCheck())
         {
             rb.gravityScale = 2f;
         }
+
+        if (GroundCheck())
+        {
+            rb.gravityScale = 1f;
+        }
+
+
 
     }
 
@@ -125,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isMove", true);
         }
 
-        if (!isGround)
+        if (!GroundCheck())
         {
             animator.SetBool("isJump", true);
         }
@@ -137,17 +180,16 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Vertical", rb.velocity.y);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private bool GroundCheck()
     {
-        if (collision.CompareTag("Ground"))
-        {
-            isGround = true;
-            rb.gravityScale = 1f;
-        }
+        return Physics2D.OverlapCircle(groundCheckPos.position, 0.1f, groundLayer);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGround = false;
+        if (collision.CompareTag("Ore"))
+        {
+            collision.GetComponent<Ore>().TakeDamage(1f);
+        }
     }
 }
