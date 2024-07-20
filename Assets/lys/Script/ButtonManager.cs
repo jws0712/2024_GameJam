@@ -73,12 +73,10 @@ public class ButtonManager : MonoBehaviour
         {
             Effect_img.sprite = unmute_img;
         }
-
     }
-
-    public void StartGame()// 게임씬으로 넘어가는 함수 
+    public void StartGame()
     {
-        
+        // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
         SceneManager.LoadScene(1);
     }
     public void OptionpPanel()// 옵션창 열기 함수
