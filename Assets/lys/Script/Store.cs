@@ -6,7 +6,15 @@ public class Store : MonoBehaviour
 {
     public bool IsStore = false;
     public GameObject StorePanel;
+    private new SpriteRenderer renderer = null;
+    [SerializeField] private Sprite Hsprite;
+    [SerializeField] private Sprite Dsprite;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        renderer = GetComponent<SpriteRenderer>();
+    }
     void Start()
     {
         StorePanel.SetActive(false);
@@ -23,11 +31,20 @@ public class Store : MonoBehaviour
         {
             StorePanel.SetActive(false);
         }
+
+        if(IsStore == true)
+        {
+            renderer.sprite = Hsprite;
+        }
+        else
+        {
+            renderer.sprite = Dsprite;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null) // 태그수정
+        if (collision.CompareTag("Player")) // 태그수정
         {
             IsStore = true;
         }
@@ -35,7 +52,7 @@ public class Store : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision != null) // 태그수정
+        if(collision.CompareTag("Player")) // 태그수정
         {
             IsStore = false;
         }

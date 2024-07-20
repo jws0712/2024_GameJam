@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/lys/Scenes/LoadingScene.unity
     guid: 19fe3c46143edca479e486f3d8bd7fd3
   - enabled: 1
-    path: Assets/lys/Scenes/GameScene.unity
-    guid: d71dd9c94ed80d542a86275bb9ff670a
+    path: Assets/JWS/Scenes/JWS.unity
+    guid: de532b4870c791d45b5b45505f9f3599
   m_configObjects: {}

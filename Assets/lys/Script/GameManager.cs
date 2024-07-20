@@ -11,6 +11,8 @@ public class SpriteList
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     public Image[] itemImages; // UI에서 아이템 이미지를 표시할 Image 컴포넌트 배열
     public List<SpriteList> enhancementSprites; // 각 아이템의 강화 레벨에 따른 이미지 배열을 관리하는 List
     public TMP_Text[] enhancementLevelTexts; // 강화 레벨을 표시할 TMP_Text 컴포넌트 배열
@@ -25,10 +27,30 @@ public class GameManager : MonoBehaviour
 
     private const string EnhancementLevelKeyPrefix = "EnhancementLevel_"; // PlayerPrefs 키 접두사
 
+    [Header("WorldStats")]
+    [SerializeField] private float currentO2;
+
+    [SerializeField] private float maxO2;
+    [SerializeField] private float minO2;
+    [Header("UI")]
+    public Slider worldO2Slider;
+    [SerializeField] private TextMeshProUGUI text;
+
+    private Transform playerTransform = null;
+    private float minPersent;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
+        minPersent = Mathf.Abs(minO2) / 100f;
+
         Play_Panel.SetActive(false);
         Play_Sound_panel.SetActive(false);
+
 
         // ButtonManager를 찾는 코드 추가
         ButtonManager = FindObjectOfType<ButtonManager>();
@@ -63,6 +85,9 @@ public class GameManager : MonoBehaviour
             Play_Sound_panel.SetActive(false);
             Play_Sound_panel_ON = false;
         }
+
+        Logic();
+        perSentUpdater();
     }
 
     public void ToggleSettingsPanel()
@@ -140,5 +165,21 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.Save(); // 변경 사항 저장
         Debug.Log("PlayerPrefs가 초기화되었습니다. 모든 아이템의 강화 단계가 1부터 시작됩니다.");
+    }
+
+    private void Logic()
+    {
+        playerTransform = GameObject.FindWithTag("Player").transform;
+
+        currentO2 = minPersent - Mathf.Abs(playerTransform.transform.position.y) / 100f;
+
+        currentO2 = Mathf.Clamp(currentO2, 0f, 1f);
+
+        worldO2Slider.value = currentO2;
+    }
+
+    private void perSentUpdater()
+    {
+        text.text = Mathf.FloorToInt(worldO2Slider.value * 100).ToString() + "%";
     }
 }

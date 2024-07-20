@@ -62,26 +62,26 @@ public class PlayerAction : MonoBehaviour
 
         while (playerO2Slider.value != 0)
         {
-            if (GameManager_JWS.instance.worldO2Slider.value <= 0.2f)
+            if (GameManager.instance.worldO2Slider.value <= 0.2f)
             {
                 currentPlayerO2 -= 4 * (o2UpgradeVelue / 100);
             }
-            else if (GameManager_JWS.instance.worldO2Slider.value <= 0.4f)
+            else if (GameManager.instance.worldO2Slider.value <= 0.4f)
             {
                 currentPlayerO2 -= 3 * (o2UpgradeVelue / 100);
 
             }
-            else if (GameManager_JWS.instance.worldO2Slider.value <= 0.6f)
+            else if (GameManager.instance.worldO2Slider.value <= 0.6f)
             {
                 currentPlayerO2 -= 2 * (o2UpgradeVelue / 100);
 
             }
-            else if (GameManager_JWS.instance.worldO2Slider.value <= 0.8f)
+            else if (GameManager.instance.worldO2Slider.value <= 0.8f)
             {
                 currentPlayerO2 -= 1 * (o2UpgradeVelue / 100);
 
             }
-            else if (GameManager_JWS.instance.worldO2Slider.value <= 1)
+            else if (GameManager.instance.worldO2Slider.value <= 1)
             {
                 currentPlayerO2 -= 0 * (o2UpgradeVelue / 100);
 
