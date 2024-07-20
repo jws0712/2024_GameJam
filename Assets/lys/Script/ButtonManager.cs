@@ -33,7 +33,7 @@ public class ButtonManager : MonoBehaviour
     void Start()
     {
         OnOffPannel(false);// 시작시 옵션 패널 꺼짐
- 
+
     }
     private void OnOffPannel(bool active)
     {
@@ -47,7 +47,7 @@ public class ButtonManager : MonoBehaviour
             OnOffPannel(false);
         }
 
-        if (Master_Slider.value == 0.001f) 
+        if (Master_Slider.value == 0.001f)
         {
             Master_img.sprite = mute_img;
         }
@@ -56,7 +56,7 @@ public class ButtonManager : MonoBehaviour
             Master_img.sprite = unmute_img;
         }
 
-        if (BGM_Slider.value == 0.001f) 
+        if (BGM_Slider.value == 0.001f)
         {
             BGM_img.sprite = mute_img;
         }
@@ -65,7 +65,7 @@ public class ButtonManager : MonoBehaviour
             BGM_img.sprite = unmute_img;
         }
 
-        if (Effect_Slider.value == 0.001f)  
+        if (Effect_Slider.value == 0.001f)
         {
             Effect_img.sprite = mute_img;
         }
@@ -77,7 +77,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
-        SceneManager.LoadScene(1);
+        FadeManager.Instance.ChangeScene(1);
     }
     public void OptionpPanel()// 옵션창 열기 함수
     {

@@ -1480,12 +1480,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1940635789}
   - {fileID: 2030152976}
   - {fileID: 1303122023}
   - {fileID: 2075096014}
   - {fileID: 1815447072}
   - {fileID: 853898975}
+  - {fileID: 1940635789}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1503,7 +1503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 836903543}
-  - component: {fileID: 836903542}
+  - component: {fileID: 836903544}
   m_Layer: 0
   m_Name: Fade Manager
   m_TagString: Untagged
@@ -1511,20 +1511,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &836903542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 836903541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae28b5fbe3707b47b58c19a3f135b0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeOutUIImage: {fileID: 1940635787}
-  fadeSpeed: 1
 --- !u!4 &836903543
 Transform:
   m_ObjectHideFlags: 0
@@ -1540,6 +1526,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &836903544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836903541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae28b5fbe3707b47b58c19a3f135b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutUIImage: {fileID: 1940635786}
+  fadeSpeed: 1
 --- !u!1 &853898974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,7 +1565,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853898974}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1573,7 +1573,7 @@ RectTransform:
   - {fileID: 456354659}
   - {fileID: 387949241}
   m_Father: {fileID: 603089423}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2310,7 +2310,7 @@ RectTransform:
   m_Children:
   - {fileID: 2109594866}
   m_Father: {fileID: 603089423}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.354, y: 0.3208652}
   m_AnchorMax: {x: 0.63953257, y: 0.395}
@@ -3121,7 +3121,7 @@ RectTransform:
   - {fileID: 1153155239}
   - {fileID: 1646635233}
   m_Father: {fileID: 603089423}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3216,7 +3216,7 @@ GameObject:
   - component: {fileID: 1940635787}
   m_Layer: 5
   m_Name: Fade Panel
-  m_TagString: Untagged
+  m_TagString: Fade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3235,7 +3235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3272,7 +3272,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 603089423}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3464,7 +3464,7 @@ RectTransform:
   m_Children:
   - {fileID: 2033228032}
   m_Father: {fileID: 603089423}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.354, y: 0.4577022}
   m_AnchorMax: {x: 0.647, y: 0.5345675}
@@ -3961,7 +3961,7 @@ RectTransform:
   m_Children:
   - {fileID: 270827910}
   m_Father: {fileID: 603089423}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.354, y: 0.1592696}
   m_AnchorMax: {x: 0.647, y: 0.2392696}

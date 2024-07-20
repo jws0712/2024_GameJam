@@ -27,7 +27,7 @@ public class Store : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null)
+        if (collision != null) // 태그수정
         {
             IsStore = true;
         }
@@ -35,7 +35,7 @@ public class Store : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision != null)
+        if(collision != null) // 태그수정
         {
             IsStore = false;
         }

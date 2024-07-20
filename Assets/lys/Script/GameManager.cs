@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        FadeManager.Instance.FadeIn();
         // 각 아이템의 저장된 강화 레벨을 불러와서 UI를 업데이트
         for (int i = 0; i < itemImages.Length; i++)
         {
