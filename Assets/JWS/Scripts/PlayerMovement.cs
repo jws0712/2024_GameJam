@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb = null;
     private Animator animator = null;
-    private SpriteRenderer spriteRenderer = null;
 
     private float horizontal = default;
 
@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -58,16 +57,8 @@ public class PlayerMovement : MonoBehaviour
         if (isGround && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-            
-            if (!faceRight)
-            {
-                StartCoroutine(JumpSqueeze(-0.5f, 1.2f, 0.1f));
-            }
-            else
-            {
-                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
 
-            }
+            StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
 
             isJump = true;
         }
@@ -98,21 +89,14 @@ public class PlayerMovement : MonoBehaviour
         if ((horizontal > 0 && !faceRight) || (horizontal < 0 && faceRight))
         {
             faceRight = !faceRight;
-            transform.localScale = new Vector3(faceRight ? 1 : -1 , 1, 1);
+            transform.rotation = Quaternion.Euler(0, faceRight ? 0 : 180, 0);
         }
     }
 
     private IEnumerator JumpSqueeze(float xSquezze, float ySquezze, float seconds)
     {
-        if(!faceRight)
-        {
-            originalSize = new Vector3(-1, 1, 1);
-        }
-        else
-        {
-            originalSize = Vector3.one;
-        }
-        
+        originalSize = Vector3.one;
+
         Vector3 newSize = new Vector3(xSquezze, ySquezze, originalSize.z);
         float t = 0;
         while (t <= 1.0)
@@ -140,22 +124,30 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMove", true);
         }
+
+        if (!isGround)
+        {
+            animator.SetBool("isJump", true);
+        }
+        else
+        {
+            animator.SetBool("isJump", false);
+        }
+
+        animator.SetFloat("Vertical", rb.velocity.y);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.CompareTag("Ground"))
         {
             isGround = true;
             rb.gravityScale = 1f;
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGround = false;
-        }
+        isGround = false;
     }
 }
