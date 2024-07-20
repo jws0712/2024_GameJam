@@ -5,6 +5,7 @@ using System.Text;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,16 +16,23 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb = null;
     private Animator animator = null;
+    private SpriteRenderer spriteRenderer = null;
+
     private float horizontal = default;
+
     private Vector2 dir = Vector2.zero;
-    private bool faceRight = default;
+    private Vector3 originalSize = Vector3.zero;
+
+    public bool faceRight = default;
     public bool isGround = default;
     private bool isJump = default;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -37,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerInput();
         PlayerFlip();
         PlayerJump();
+        SetPlayerAnimation();
     }
 
     private void FixedUpdate()
@@ -49,7 +58,17 @@ public class PlayerMovement : MonoBehaviour
         if (isGround && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-            StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+            
+            if (!faceRight)
+            {
+                StartCoroutine(JumpSqueeze(-0.5f, 1.2f, 0.1f));
+            }
+            else
+            {
+                StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+
+            }
+
             isJump = true;
         }
         if (isJump && Input.GetKeyUp(KeyCode.Space))
@@ -79,13 +98,21 @@ public class PlayerMovement : MonoBehaviour
         if ((horizontal > 0 && !faceRight) || (horizontal < 0 && faceRight))
         {
             faceRight = !faceRight;
-            transform.rotation = Quaternion.Euler(0, faceRight ? 0 : 180, 0);
+            transform.localScale = new Vector3(faceRight ? 1 : -1 , 1, 1);
         }
     }
 
     private IEnumerator JumpSqueeze(float xSquezze, float ySquezze, float seconds)
     {
-        Vector3 originalSize = Vector3.one;
+        if(!faceRight)
+        {
+            originalSize = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            originalSize = Vector3.one;
+        }
+        
         Vector3 newSize = new Vector3(xSquezze, ySquezze, originalSize.z);
         float t = 0;
         while (t <= 1.0)
@@ -100,6 +127,18 @@ public class PlayerMovement : MonoBehaviour
             t += Time.deltaTime / seconds;
             charactorHolder.transform.localScale = Vector3.Lerp(newSize, originalSize, t);
             yield return null;
+        }
+    }
+
+    private void SetPlayerAnimation()
+    {
+        if(horizontal == 0)
+        {
+            animator.SetBool("isMove", false);
+        }
+        else
+        {
+            animator.SetBool("isMove", true);
         }
     }
 
