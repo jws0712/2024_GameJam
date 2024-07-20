@@ -97,7 +97,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         // 로딩 씬으로 전환 (로딩 씬의 인덱스를 설정)
-        FadeManager.Instance.ChangeScene(2);
+        FadeManager.Instance.ChangeScene(1);
     }
 
     public void OptionpPanel() // 옵션창 열기 함수
