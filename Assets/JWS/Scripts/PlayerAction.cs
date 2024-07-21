@@ -15,7 +15,9 @@ public class PlayerAction : MonoBehaviour
     [SerializeField] private float currentHp;
     [SerializeField] private float maxPlayerO2;
     [SerializeField] private float currentPlayerO2;
-    
+    public AudioSource playerAudioSource;
+
+
 
     private Animator animator;
 
@@ -58,6 +60,7 @@ public class PlayerAction : MonoBehaviour
     private IEnumerator Mining()
     {
         isMining = true;
+        playerAudioSource.Play();
         pickaxeAnimator.SetTrigger("Mining");
         miningDistance.enabled = true;
         yield return new WaitForSeconds(0.1f);

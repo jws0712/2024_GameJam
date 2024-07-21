@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 787190751508106831}
   - component: {fileID: 787190751508106828}
   - component: {fileID: 787190751508106824}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Moving block
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 81d74f0dbe07d83468ff0a374e5747a1, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

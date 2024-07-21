@@ -8,6 +8,11 @@ public class LoadingManager : MonoBehaviour
 
     public int targetSceneIndex; // 로드할 씬의 인덱스
 
+    private void OnEnable()
+    {
+        StartCoroutine(LoadGameSceneAsync());
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -24,21 +29,22 @@ public class LoadingManager : MonoBehaviour
     private void Start()
     {
         
-        StartCoroutine(LoadGameSceneAsync());
+        //StartCoroutine(LoadGameSceneAsync());
     }
 
     private IEnumerator LoadGameSceneAsync()
     {
         // 씬을 비동기적으로 로드
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneIndex);
+        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(targetSceneIndex);
 
-        while (!asyncLoad.isDone)
+        //while (!asyncLoad.isDone)
         {
             // 로딩 진행 상태를 콘솔에 출력
-            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f); // progress는 0에서 0.9까지 진행됨
-            Debug.Log("Loading Progress: " + (progress * 100f).ToString("F0") + "%");
-            
-            yield return null ;
+            //float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f); // progress는 0에서 0.9까지 진행됨
+            //Debug.Log("Loading Progress: " + (progress * 100f).ToString("F0") + "%");
+
+            yield return new WaitForSeconds(1.2f);
+            SceneManager.LoadScene(targetSceneIndex);
         }
     }
 }

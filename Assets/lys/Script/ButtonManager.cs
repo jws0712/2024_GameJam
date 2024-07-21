@@ -117,11 +117,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ExitGame() // 게임 나가기 함수
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit(); // 어플리케이션 종료
-#endif
+        Application.Quit();
     }
 
     public void mute_MV() // 마스터 볼륨 음소거

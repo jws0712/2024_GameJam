@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public bool faceRight = default;
     private bool isJump = default;
     public bool isTp = default;
-
+    public AudioSource playerAudioSource1;
+    public AudioSource playerAudioSource2;
 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && GroundCheck() && !isTp)
         {
             isTp = true;
+            playerAudioSource1.Play();
             pickaxe.SetActive(!isTp);
             animator.SetTrigger("Tp");
         }
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GroundCheck() && Input.GetKeyDown(KeyCode.Space))
         {
+            playerAudioSource2.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
 
             StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
@@ -185,6 +188,11 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Ore"))
         {
             collision.GetComponent<Ore>().TakeDamage(transform.GetChild(0).GetComponent<pickAxe>().damage);
+        }
+        else if (collision.CompareTag("EndOre"))
+        {
+            collision.GetComponent<EndOre>().TakeDamage(transform.GetChild(0).GetComponent<pickAxe>().damage);
+
         }
     }
 }
